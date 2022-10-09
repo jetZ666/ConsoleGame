@@ -41,7 +41,7 @@ void Setup()
 {
     gameover = false;
     StrelMenuPos = 0;
-    player = "↑";
+    player = char(245);
     player_color = 5;
     map_color = 1;
     dir = STOP;
@@ -54,13 +54,13 @@ void Setup()
 
 void Optimization(int x, int y)
 {
-    //установка курсора на позицию x y
+    //set cursor on pos x, y
     COORD coord;
     coord.X = x;
     coord.Y = y;
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 
-    // скрыть каретку в консоли
+    // hide 'karetka' in console
     void* handle = GetStdHandle(STD_OUTPUT_HANDLE);
     CONSOLE_CURSOR_INFO structCursorInfo;
     GetConsoleCursorInfo(handle,&structCursorInfo);
@@ -73,7 +73,7 @@ int Menu()
     while(true)
     {
         Optimization(0, 0);
-	    for (int i = 0; i<20; i++) 
+	    for (int i = 0; i<20; i++)
         {
             cout << mn[i] << endl;
         }
@@ -106,7 +106,7 @@ int Menu()
 			}
 			break;
 		case 80:
-			//vniz
+			// vniz
 			if (mn[pl_i+1][pl_j+1] != ' ')
             {
 				mn[pl_i+1][pl_j] = '-';
@@ -127,7 +127,7 @@ void lvl_1()
             if (j == 0 || j == width-1)
             {
                 SetConsoleTextAttribute(hConsole, map_color);
-                cout << "|";
+                cout << char(219);
             }
             if (i == y && j == x)
             {
@@ -158,7 +158,7 @@ void lvl_2()
             if (j == 0 || j == width-1)
             {
                 SetConsoleTextAttribute(hConsole, map_color);
-                cout << "|";
+                cout << char(219);
             }
             if (i == y && j == x)
             {
@@ -184,12 +184,12 @@ void lvl_2()
 void Draw()
 {
     Optimization(0, 0);
-    
+
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     for (int i = 0; i < width+1; i++)
     {
         SetConsoleTextAttribute(hConsole, map_color);
-        cout << "◼";
+        cout << char(220);
     }
     cout << endl;
 
@@ -208,7 +208,7 @@ void Draw()
     for (int i = 0; i < width+1; i++)
     {
         SetConsoleTextAttribute(hConsole, map_color);
-        cout << "◼";
+        cout << char(223);
     }
     cout << endl;
     cout << "Score: " << score << endl;
@@ -252,7 +252,6 @@ void PlayerLogic()
     case LEFT:
         if (x > 0)
         {
-            player = "←";
             x--;
             dir = STOP;
         }
@@ -260,7 +259,7 @@ void PlayerLogic()
     case RIGHT:
         if (x+2 < width)
         {
-            player = "→";
+            //player = "→";
             x++;
             dir = STOP;
         }
@@ -268,7 +267,6 @@ void PlayerLogic()
     case UP:
         if (y > 0)
         {
-            player = "↑";
             y--;
             dir = STOP;
         }
@@ -276,7 +274,6 @@ void PlayerLogic()
     case DOWN:
         if (y+1 < height)
         {
-            player = "↓";
             y++;
             dir = STOP;
         }
