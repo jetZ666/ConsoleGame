@@ -15,7 +15,7 @@ int pl_i = 7, pl_j = 6;
 int level = 1, finish_posX, finish_posY;
 
 char mn[20][20] = {
-	"###################",
+    "###################",
     "#                 #",
     "#                 #",
     "#      menu       #",
