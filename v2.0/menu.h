@@ -6,6 +6,8 @@ class MenuClass
 {
 public:
     int Menu();
+    int Levels();
+    void EndGame();
 };
 
 #endif
