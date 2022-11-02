@@ -4,11 +4,10 @@
 
 using namespace std;
 
-class gun
+class GunClass
 {
 public:
     void turel();
-    void laser();
 };
 
 #endif

@@ -53,6 +53,11 @@ void Draw()
     }
 
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+    if (lvl[finish_y+1][finish_x] == '*') lvl[finish_y+1][finish_x] = ' ';
+    if (lvl[finish_y-1][finish_x] == '*') lvl[finish_y-1][finish_x] = ' ';
+    if (lvl[finish_y][finish_x+1] == '*') lvl[finish_y][finish_x+1] = ' ';
+    if (lvl[finish_y][finish_x-1] == '*') lvl[finish_y][finish_x-1] = ' ';
     
     for (int i = 0; i < height; i++)
     {
@@ -65,8 +70,13 @@ void Draw()
         {
             for (int j = 0; j < width; j++)
             {
+                if (i == y && j == x) lvl[i][j] = '*';
                 if (lvl[i][j] == '*')
                 {
+                    if (i != y || j != x)
+                    {
+                        lvl[i][j] = ' ';
+                    }
                     SetConsoleTextAttribute(hConsole, player_color);
                 }
                 if (lvl[i][j] == 'f')
@@ -79,6 +89,7 @@ void Draw()
             cout << endl;
         }
     }
+
     SetConsoleTextAttribute(hConsole, 3);    
     cout << "Score: " << score << "        Level - " << level << endl;
 }
@@ -113,7 +124,7 @@ void PlayerLogic()
     switch (dir)
     {
     case LEFT:
-        if (lvl[y][x-1] != '#')
+        if (lvl[y][x-1] != '#' && lvl[y][x-1] != '<' && lvl[y][x-1] != '>' && lvl[y][x-1] != '^')
         {
             if (lvl[y][x-1] == 'f')
             {
@@ -127,7 +138,7 @@ void PlayerLogic()
         }
         break;    
     case RIGHT:
-        if (lvl[y][x+1] != '#')
+        if (lvl[y][x+1] != '#' && lvl[y][x+1] != '<' && lvl[y][x+1] != '>' && lvl[y][x+1] != '^')
         {
             if (lvl[y][x+1] == 'f')
             {
@@ -141,7 +152,7 @@ void PlayerLogic()
         }
         break;
     case UP:
-        if (lvl[y-1][x] != '#')
+        if (lvl[y-1][x] != '#' && lvl[y-1][x] != '<' && lvl[y-1][x] != '>' && lvl[y-1][x] != '^')
         {
             if (lvl[y-1][x] == 'f')
             {
@@ -155,7 +166,7 @@ void PlayerLogic()
         }
         break;
     case DOWN:
-        if (lvl[y+1][x] != '#')
+        if (lvl[y+1][x] != '#' && lvl[y+1][x] != '<' && lvl[y+1][x] != '>' && lvl[y+1][x] != '^')
         {
             if (lvl[y+1][x] == 'f')
             {
@@ -175,44 +186,50 @@ int main()
 {
     SetupClass setup;
     MenuClass menu;
-        
-    setup.Settings();
-    switch (menu.Menu())
+    GunClass gun;
+
+    while (true)
     {
-    case 0:
-        while (!gameover)
-        {
-            Draw();
-            Input();
-            PlayerLogic();
-        }
-        break;
-    case 1:
-        switch (menu.Levels())
+        setup.Settings();
+        switch (menu.Menu())
         {
         case 0:
-            level = 1;
+            while (!gameover)
+            {
+                Draw();
+                Input();
+                PlayerLogic();
+                gun.turel();
+            }
             break;
         case 1:
-            level = 2;
+            switch (menu.Levels())
+            {
+            case 0:
+                level = 1;
+                break;
+            case 1:
+                level = 2;
+                break;
+            case 2:
+                level = 3;
+                break;
+            case 3:
+                level = 4;
+                break;
+            }
+            while (!gameover)
+            {
+                Draw();
+                Input();
+                PlayerLogic();
+                gun.turel();
+            }
             break;
         case 2:
-            level = 3;
-            break;
-        case 3:
-            level = 4;
-            break;
+            return 0;
         }
-        while (!gameover)
-        {
-            Draw();
-            Input();
-            PlayerLogic();
-        }
-        break;
-    case 2:
-        return 0;
+        menu.EndGame();
     }
-    menu.EndGame();
     return 0;
 }

@@ -12,6 +12,10 @@ int MenuClass::Menu()
 {
 	string *mn = new string;
 	mn = mn1;
+
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(hConsole, 3);
+
     while(true)
     {
         SetupClass setupMenu;
@@ -35,21 +39,21 @@ int MenuClass::Menu()
 	    {
 		case 72:
 			//vverh
-			if (mn[pl_i-1][pl_j+1] != ' ')
+			if (mn[coordMn1_i-1][coordMn1_j+1] != ' ')
             {
-				mn[pl_i-1][pl_j] = '-';
-				mn[pl_i][pl_j] = ' ';
-				pl_i -= 1;
+				mn[coordMn1_i-1][coordMn1_j] = '-';
+				mn[coordMn1_i][coordMn1_j] = ' ';
+				coordMn1_i -= 1;
 				StrelMenuPos -= 1;
 			}
 			break;
 		case 80:
 			// vniz
-			if (mn[pl_i+1][pl_j+1] != ' ')
+			if (mn[coordMn1_i+1][coordMn1_j+1] != ' ')
             {
-				mn[pl_i+1][pl_j] = '-';
-				mn[pl_i][pl_j] = ' ';
-				pl_i += 1;
+				mn[coordMn1_i+1][coordMn1_j] = '-';
+				mn[coordMn1_i][coordMn1_j] = ' ';
+				coordMn1_i += 1;
 				StrelMenuPos += 1;
 			}
 			break;
@@ -62,7 +66,10 @@ int MenuClass::Levels()
 {
 	string *mn = new string;
 	mn = mn2;
-	pl_i = 7, pl_j = 6;
+
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(hConsole, 3);
+
     while(true)
     {
         SetupClass setupLevels;
@@ -86,21 +93,21 @@ int MenuClass::Levels()
 	    {
 		case 72:
 			//vverh
-			if (mn[pl_i-1][pl_j+1] != ' ')
+			if (mn[coordMn2_i-1][coordMn2_j+1] != ' ')
             {
-				mn[pl_i-1][pl_j] = '-';
-				mn[pl_i][pl_j] = ' ';
-				pl_i -= 1;
+				mn[coordMn2_i-1][coordMn2_j] = '-';
+				mn[coordMn2_i][coordMn2_j] = ' ';
+				coordMn2_i -= 1;
 				StrelMenuPos_lvl -= 1;
 			}
 			break;
 		case 80:
 			// vniz
-			if (mn[pl_i+1][pl_j+1] != ' ')
+			if (mn[coordMn2_i+1][coordMn2_j+1] != ' ')
             {
-				mn[pl_i+1][pl_j] = '-';
-				mn[pl_i][pl_j] = ' ';
-				pl_i += 1;
+				mn[coordMn2_i+1][coordMn2_j] = '-';
+				mn[coordMn2_i][coordMn2_j] = ' ';
+				coordMn2_i += 1;
 				StrelMenuPos_lvl += 1;
 			}
 			break;
@@ -112,6 +119,10 @@ int MenuClass::Levels()
 void MenuClass::EndGame()
 {
 	system("cls");
+
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(hConsole, 3);
+
 	while (true)
 	{
 		SetupClass setupEnd;

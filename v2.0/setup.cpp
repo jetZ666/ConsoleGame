@@ -11,18 +11,15 @@ using namespace std;
 bool gameover;
 const int width = 40;
 const int height = 20;
-int x, y, score, map_color, player_color, StrelMenuPos, StrelMenuPos_lvl;
+int x, y, score, map_color, player_color, StrelMenuPos = 0, StrelMenuPos_lvl = 0;
 enum eDir {STOP = 0, LEFT, RIGHT, UP, DOWN};
 eDir dir;
 eDir last_move;
 string player;
-int pl_i = 7, pl_j = 6;
-int level = 1;
+int coordMn1_i = 7, coordMn1_j = 6, coordMn2_i = 7, coordMn2_j = 6;
+int level;
 string *lvl;
-int flag_1 = 1;
-int flag_2 = 1;
-int flag_3 = 1;
-int flag_4 = 1;
+int flag_1, flag_2, flag_3, flag_4;
 int finish_x, finish_y;
 
 string mn1[20] = {
@@ -99,18 +96,18 @@ string lvl1[20]{
     "#*                                    #",
     "#                                     #",
     "#                                     #",
-    "#                                     #",
+    "#               <                     #",
     "#    f                                #",
     "#                                     #",
     "#                                     #",
     "#                                     #",
     "#                                     #",
+    "#                        <            #",
     "#                                     #",
     "#                                     #",
     "#                                     #",
     "#                                     #",
-    "#                                     #",
-    "#                                     #",
+    "#                <                    #",
     "#                                     #",
     "#                                     #",
     "#                                     #",
@@ -189,17 +186,13 @@ string lvl4[20]{
 void SetupClass::Settings()
 {
     gameover = false;
-    StrelMenuPos = 0;
-    StrelMenuPos_lvl = 0;
-    player_color = 5;
-    map_color = 1;
+    player_color = 5, map_color = 1;
     dir = STOP;
-    x = 1;
-    y = 1;
+    x = 1, y = 1;
     score = 0;
     level = 1;
-    finish_x = 5;
-    finish_y = 5;
+    finish_x = 5, finish_y = 5;
+    flag_1 = 1, flag_2 = 1, flag_3 = 1, flag_4 = 1;
 }
 
 void SetupClass::Optimization(int x, int y)
