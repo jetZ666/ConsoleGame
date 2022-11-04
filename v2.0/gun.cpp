@@ -14,7 +14,8 @@ int GunClass::calc(int i, int j, int k, char a, int f)
         {
             for (int m = k+1; m < width-2; m++)
             {
-                if (lvl[i][m] != '*') lvl[i][m] = ' ';
+                if (lvl[i][m] == '#') break;
+                if (lvl[i][m] != '*' && lvl[i][m] != '&') lvl[i][m] = ' ';
             }
             return 0;
         }
@@ -22,7 +23,8 @@ int GunClass::calc(int i, int j, int k, char a, int f)
         {
             for (int m = k-1; m > 0; m--)
             {
-                if (lvl[i][m] != '*') lvl[i][m] = ' ';
+                if (lvl[i][m] == '#') break;
+                if (lvl[i][m] != '*' && lvl[i][m] != '&') lvl[i][m] = ' ';
             }
             return 0;
         }

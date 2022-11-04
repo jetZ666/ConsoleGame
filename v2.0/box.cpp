@@ -4,7 +4,6 @@
 
 using namespace std;
 
-
 void BoxClass::box_move()
 {
     static int f = 0;
