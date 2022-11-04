@@ -2,10 +2,9 @@
 #ifndef GUN_H
 #define GUN_H
 
-using namespace std;
-
 class GunClass
 {
+    int calc(int i, int j, int k, char a, int f);
 public:
     void turel();
 };

@@ -4,13 +4,12 @@
 #include "setup.cpp"
 #include "menu.cpp"
 #include "gun.cpp"
+#include "box.cpp"
 
 using namespace std;
 
-void Draw()
+void ChangeLevel()
 {
-    SetupClass setup;
-    setup.Optimization(0, 0);
     if (level == 1 && flag_1 == 1)
     {
         x = 1;
@@ -51,6 +50,14 @@ void Draw()
     {
         gameover = true;
     }
+}
+
+void Draw()
+{
+    SetupClass setup;
+    setup.Optimization(0, 0);
+    
+    ChangeLevel();
 
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
@@ -102,15 +109,19 @@ void Input()
         {
         case 75:
             dir = LEFT;
+            last_move = L;
             break;
         case 77:
             dir = RIGHT;
+            last_move = R;
             break;
         case 72:
             dir = UP;
+            last_move = U;
             break;
         case 80:
             dir = DOWN;
+            last_move = D;
             break;
         case 'x':
             gameover = true;
@@ -124,7 +135,8 @@ void PlayerLogic()
     switch (dir)
     {
     case LEFT:
-        if (lvl[y][x-1] != '#' && lvl[y][x-1] != '<' && lvl[y][x-1] != '>' && lvl[y][x-1] != '^')
+        if (lvl[y][x-1] != '#' && lvl[y][x-1] != '<' && lvl[y][x-1] != '>' && lvl[y][x-1] != '^' && (lvl[y][x-1] != '&' || lvl[y][x-2] != '&') && (lvl[y][x-1] != '&' || lvl[y][x-2] != '#') 
+            && (lvl[y][x-1] != '&' || lvl[y][x-2] != '<') && (lvl[y][x-1] != '&' || lvl[y][x-2] != '>') && (lvl[y][x-1] != '&' || lvl[y][x-2] != '^') && (lvl[y][x-1] != '&' || lvl[y][x-2] != 'f'))
         {
             if (lvl[y][x-1] == 'f')
             {
@@ -138,7 +150,8 @@ void PlayerLogic()
         }
         break;    
     case RIGHT:
-        if (lvl[y][x+1] != '#' && lvl[y][x+1] != '<' && lvl[y][x+1] != '>' && lvl[y][x+1] != '^')
+        if (lvl[y][x+1] != '#' && lvl[y][x+1] != '<' && lvl[y][x+1] != '>' && lvl[y][x+1] != '^' && (lvl[y][x+1] != '&' || lvl[y][x+2] != '&') && (lvl[y][x+1] != '&' || lvl[y][x+2] != '#')
+            && (lvl[y][x+1] != '&' || lvl[y][x+2] != '<') && (lvl[y][x+1] != '&' || lvl[y][x+2] != '>') && (lvl[y][x+1] != '&' || lvl[y][x+2] != '^') && (lvl[y][x+1] != '&' || lvl[y][x+2] != 'f'))
         {
             if (lvl[y][x+1] == 'f')
             {
@@ -152,7 +165,8 @@ void PlayerLogic()
         }
         break;
     case UP:
-        if (lvl[y-1][x] != '#' && lvl[y-1][x] != '<' && lvl[y-1][x] != '>' && lvl[y-1][x] != '^')
+        if (lvl[y-1][x] != '#' && lvl[y-1][x] != '<' && lvl[y-1][x] != '>' && lvl[y-1][x] != '^' && (lvl[y-1][x] != '&' || lvl[y-2][x] != '&') && (lvl[y-1][x] != '&' || lvl[y-2][x] != '#')
+            && (lvl[y-1][x] != '&' || lvl[y-2][x] != '<') && (lvl[y-1][x] != '&' || lvl[y-2][x] != '>') && (lvl[y-1][x] != '&' || lvl[y-2][x] != '^') && (lvl[y-1][x] != '&' || lvl[y-2][x] != 'f'))
         {
             if (lvl[y-1][x] == 'f')
             {
@@ -166,7 +180,8 @@ void PlayerLogic()
         }
         break;
     case DOWN:
-        if (lvl[y+1][x] != '#' && lvl[y+1][x] != '<' && lvl[y+1][x] != '>' && lvl[y+1][x] != '^')
+        if (lvl[y+1][x] != '#' && lvl[y+1][x] != '<' && lvl[y+1][x] != '>' && lvl[y+1][x] != '^' && (lvl[y+1][x] != '&' || lvl[y+2][x] != '&') && (lvl[y+1][x] != '&' || lvl[y+2][x] != '#')
+            && (lvl[y+1][x] != '&' || lvl[y+2][x] != '<') && (lvl[y+1][x] != '&' || lvl[y+2][x] != '>') && (lvl[y+1][x] != '&' || lvl[y+2][x] != '^') && (lvl[y+1][x] != '&' || lvl[y+2][x] != 'f'))
         {
             if (lvl[y+1][x] == 'f')
             {
@@ -187,6 +202,7 @@ int main()
     SetupClass setup;
     MenuClass menu;
     GunClass gun;
+    BoxClass box;
 
     while (true)
     {
@@ -196,9 +212,11 @@ int main()
         case 0:
             while (!gameover)
             {
+                frames += 1;
                 Draw();
                 Input();
                 PlayerLogic();
+                box.box_move();
                 gun.turel();
             }
             break;
@@ -220,9 +238,11 @@ int main()
             }
             while (!gameover)
             {
+                frames += 1;
                 Draw();
                 Input();
                 PlayerLogic();
+                box.box_move();
                 gun.turel();
             }
             break;

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <ctime>
 #include <windows.h>
 #include "setup.h"
 
@@ -13,14 +14,16 @@ const int width = 40;
 const int height = 20;
 int x, y, score, map_color, player_color, StrelMenuPos = 0, StrelMenuPos_lvl = 0;
 enum eDir {STOP = 0, LEFT, RIGHT, UP, DOWN};
+enum lastStep {NONE, L, R, U, D};
 eDir dir;
-eDir last_move;
+lastStep last_move;
 string player;
 int coordMn1_i = 7, coordMn1_j = 6, coordMn2_i = 7, coordMn2_j = 6;
 int level;
 string *lvl;
 int flag_1, flag_2, flag_3, flag_4;
 int finish_x, finish_y;
+int frames = 0;
 
 string mn1[20] = {
     "###################",
@@ -93,10 +96,10 @@ string mn3[20] = {
 
 string lvl1[20]{
     "#######################################",
-    "#*                                    #",
+    "#*                  &                 #",
+    "#                   &                 #",
+    "#                  &&                 #",
     "#                                     #",
-    "#                                     #",
-    "#               <                     #",
     "#    f                                #",
     "#                                     #",
     "#                                     #",
@@ -105,11 +108,11 @@ string lvl1[20]{
     "#                        <            #",
     "#                                     #",
     "#                                     #",
-    "#                                     #",
+    "#             >                       #",
     "#                                     #",
     "#                <                    #",
     "#                                     #",
-    "#                                     #",
+    "#        >                            #",
     "#                                     #",
     "#######################################"
 };
@@ -188,6 +191,7 @@ void SetupClass::Settings()
     gameover = false;
     player_color = 5, map_color = 1;
     dir = STOP;
+    last_move = NONE;
     x = 1, y = 1;
     score = 0;
     level = 1;
