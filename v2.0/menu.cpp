@@ -116,6 +116,18 @@ int MenuClass::Levels()
 	delete mn;
 }
 
+int MenuClass::lenScore()
+{
+	int s = score;
+	int len = 0;
+	while (s/10 != 0)
+	{
+		s /= 10;
+		len += 1;
+	}
+	return len;
+}
+
 void MenuClass::EndGame()
 {
 	system("cls");
@@ -123,12 +135,25 @@ void MenuClass::EndGame()
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(hConsole, 3);
 
+	static int lennScore;
+
+	lennScore = lenScore();
 	while (true)
 	{
 		SetupClass setupEnd;
 		setupEnd.Optimization(0, 0);
 		for (int i = 0; i < 20; i++)
 		{
+			if (i == 13)
+			{
+				cout << "#   score: " << score;
+				for (int j = 0; j < 6-lennScore; j++)
+				{
+					cout << " ";
+				}
+				cout << "#" << endl;
+				continue;
+			}
 			cout << mn3[i] << endl;;
 		}
 		if (_kbhit)

@@ -5,6 +5,7 @@
 #include "menu.cpp"
 #include "gun.cpp"
 #include "box.cpp"
+#include "coin.cpp"
 
 using namespace std;
 
@@ -203,6 +204,7 @@ int main()
     MenuClass menu;
     GunClass gun;
     BoxClass box;
+    CoinClass coin;
 
     while (true)
     {
@@ -218,6 +220,7 @@ int main()
                 PlayerLogic();
                 box.box_move();
                 gun.turel();
+                coin.get_coin();
             }
             break;
         case 1:
@@ -244,6 +247,7 @@ int main()
                 PlayerLogic();
                 box.box_move();
                 gun.turel();
+                coin.get_coin();
             }
             break;
         case 2:

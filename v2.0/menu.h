@@ -4,6 +4,7 @@
 
 class MenuClass
 {
+    int lenScore();
 public:
     int Menu();
     int Levels();
